@@ -5,19 +5,18 @@ class Product{
 private String brand;
 private int unitPrice;
 
-
 public Product(String brand, int unitPrice) {
     this.brand = brand;
     this.unitPrice = unitPrice;
-
+}
 public void setBrand(String brand)
 {
-this brand=brand;
+this.brand=brand;
 }
 
-public void setUnitPrice (int unirPrice){
+public void setUnitPrice (int unitPrice){
 
-this unitPrice=unitPrice;
+this.unitPrice=unitPrice;
 }
 
 
@@ -30,10 +29,10 @@ public int getUnitPrice(){
 
     return unitPrice;
 }
-
+}
 
 class Bill{
-    list<BillEntry>billEntries=new ArrayList<>();
+     static List<BillEntry>billEntries=new ArrayList<>();
 
 void addBillEntry(BillEntry billentry ){
    billEntries.add(billentry);
@@ -48,21 +47,22 @@ void printBill(){
 }
 
 
-int calculateTotal(){
+static int calculateTotal(){
 int total=0;
 
 for(BillEntry e:billEntries){
 
-total+=e.calculateTotal()
+ total+=e.getTotalPrice();
+}
+return total;
+
 }
 
-}
 
-
-class BillEntry{
+static class BillEntry{
 
     Product product;
-    int quality;
+    int quantity;
 
 
     public BillEntry(Product product, int quantity)
@@ -76,19 +76,23 @@ class BillEntry{
     }
     
     void printBillEntry(){
+    String quantity=null;
     System.out.println("Product Name"+product.getBrand()+"Unit Price"+product.getUnitPrice()+"x"+quantity+"Total Price"+getTotalPrice());
 
     }
 }
 
-class BillDemo{
+static class BillDemo{
     static void print(String W){
         System.out.println(W);
     }
-    static void printProduct(Product p){
-        print("NAME"+p.getBrand+p.getUnitPrice());
+    void printProduct(Product p){
+        print("NAME"+p.getBrand()+p.getUnitPrice());
     }
     
+    /**
+     * @param args
+     */
     public static void main(String[]args){
         print("Welcome to Demo Shop");
         print("Entering products...");
@@ -101,28 +105,35 @@ class BillDemo{
 
         print ("Entering a new bill");
 
-
+        Bill b=new Bill();
         BillEntry bill01=new BillEntry(milk,10);
         bill01.printBillEntry();
 
 
-        Bill b=new Bill();
-        b.addEntry()
+    
+        b.addBillEntry(bill01);
+        b.addBillEntry(new BillEntry(bread,5));
+        b.addBillEntry(new BillEntry(new Product("Suger",250),3));
+
+        print("Printing bill....");
+        b.printBill();
+
+        print("overall total:"+ calculateTotal());
 
 
+
+
+
+    }
+    @Override
+    public String toString() {
+        return "BillDemo []";
     }
 
 
 
 
-       
-    }
-
-
-
-
-
-
+}
 }
 
 
@@ -130,10 +141,17 @@ class BillDemo{
 
 
 
-}
+
+
+
+
+
+
+
+
 
 
 
 
     
-}
+
