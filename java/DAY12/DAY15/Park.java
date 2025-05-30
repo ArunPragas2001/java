@@ -53,8 +53,8 @@ class Vehicle{
 
 class ParkingLot{
     
-    Vehicle vehi[];
-    int VehiCount=0;
+    private Vehicle vehi[];
+    private int VehiCount=0;
 
     vehi[] vehicles=new vehi[5];
 
